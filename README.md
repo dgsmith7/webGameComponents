@@ -1,5 +1,7 @@
 # webGameComponenets
 
+TODO - forgot this uses modules when I moved and pushed - need to fix this.
+
 I am trying to build some webgame componenets for use in future projects. 
 
 Character controller:

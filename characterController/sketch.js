@@ -6,26 +6,26 @@ http://baconbitscollective.org
 A simple JS starter template for THREE js projects on 1ofX
 */ //////////////////////////////////////////////////////////
 
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import {
-  Scene,
-  Color,
-  PerspectiveCamera,
-  AmbientLight,
-  DirectionalLight,
-  SpotLight,
-  HemisphereLight,
-  WebGLRenderer,
-  BoxGeometry,
-  MeshPhongMaterial,
-  DoubleSide,
-  Mesh,
-  Clock,
-  AnimationMixer,
-  Vector3,
-  PlaneGeometry,
-} from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// import {
+//   Scene,
+//   Color,
+//   PerspectiveCamera,
+//   AmbientLight,
+//   DirectionalLight,
+//   SpotLight,
+//   HemisphereLight,
+//   WebGLRenderer,
+//   BoxGeometry,
+//   MeshPhongMaterial,
+//   DoubleSide,
+//   Mesh,
+//   Clock,
+//   AnimationMixer,
+//   Vector3,
+//   PlaneGeometry,
+// } from "three";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 let container,
   scene,
@@ -41,7 +41,7 @@ let container,
   mixer,
   model;
 let screenShotDone = false;
-let clock = new Clock();
+let clock = new THREE.Clock();
 let idleAction,
   walkAction,
   runAction,
@@ -59,8 +59,8 @@ let actions, currentAction, nextAction;
 let nextActionIdx = 0;
 
 function init() {
-  scene = new Scene();
-  scene.background = new Color(0xa0a0a0);
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xa0a0a0);
   setCamera();
   setLights();
   buildRenderer();
@@ -103,7 +103,7 @@ function updateScene() {
 }
 
 function setCamera() {
-  camera = new PerspectiveCamera(
+  camera = new THREE.PerspectiveCamera(
     45,
     window.innerWidth / window.innerHeight,
     1,
@@ -117,27 +117,27 @@ function setCamera() {
 }
 
 function setLights() {
-  ambLt = new AmbientLight(0xffffff, 1.0);
+  ambLt = new THREE.AmbientLight(0xffffff, 1.0);
   scene.add(ambLt);
 
-  dirLt = new DirectionalLight(0xffffff, 0.5);
+  dirLt = new THREE.DirectionalLight(0xffffff, 0.5);
   dirLt.position.set(0, -15, 20);
   dirLt.castShadow = true;
   scene.add(dirLt);
 
-  spotLt = new SpotLight(0xffffff, 0.5);
+  spotLt = new THREE.SpotLight(0xffffff, 0.5);
   spotLt.position.set(2, -55, 50);
   spotLt.decay = 2.0;
   spotLt.castShadow = true;
   scene.add(spotLt);
 
-  const hemiLight = new HemisphereLight(0xffffff, 0x444444);
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
   hemiLight.position.set(0, -10, 20);
   scene.add(hemiLight);
 }
 
 function buildRenderer() {
-  renderer = new WebGLRenderer({ antialias: true });
+  renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight, true);
   renderer.setPixelRatio(window.devicePixelRatio || 1);
 }
@@ -218,7 +218,7 @@ function loadGLTF() {
 
     const animations = gltf.animations;
 
-    mixer = new AnimationMixer(model);
+    mixer = new THREE.AnimationMixer(model);
 
     idleAction = mixer.clipAction(animations[11]);
     walkAction = mixer.clipAction(animations[9]);
@@ -475,13 +475,13 @@ function buildIt() {
   //  put all of your geometry and materials in here
   // ground
 
-  (geometry = new PlaneGeometry(100, 100)),
-    (material = new MeshPhongMaterial({
+  (geometry = new THREE.PlaneGeometry(100, 100)),
+    (material = new THREE.MeshPhongMaterial({
       color: 0x555555,
       //    depthWrite: false,
       side: DoubleSide,
     }));
-  mesh = new Mesh(geometry, material);
+  mesh = new THREE.Mesh(geometry, material);
   mesh.rotation.z = -Math.PI / 2;
   mesh.receiveShadow = true;
   scene.add(mesh);
